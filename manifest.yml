@@ -2,4 +2,4 @@
 applications:
 - name: music
   memory: 1G
-  
+  path: build/libs/spring-music.jar  
