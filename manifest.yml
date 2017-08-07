@@ -2,6 +2,7 @@
 applications:
 - name: music
   memory: 1G
+  instances: 5
   path: ../build/libs/spring-music.jar
   host: music
   domains:
