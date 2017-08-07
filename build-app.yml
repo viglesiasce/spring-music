@@ -9,10 +9,14 @@ image_resource:
 
 inputs:
 - name: resource-web-app
+outputs:
+- name: build
+  path: resource-web-app/build
 
 run:
   path: sh
   args:
   - -exc
   - |
+    cd resource-web-app
     ./gradlew clean assemble
