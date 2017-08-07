@@ -2,4 +2,9 @@
 applications:
 - name: music
   memory: 1G
-  path: ../build/libs/spring-music.jar  
+  path: ../build/libs/spring-music.jar
+  host: music
+  domains:
+  - east.pcf.vicnastea.io
+  - central.pcf.vicnastea.io
+  - global.pcf.vicnastea.io
