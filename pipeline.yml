@@ -1,0 +1,53 @@
+---
+jobs:
+- name: Test and Build
+  plan:
+  - get: source-code
+    trigger: true
+  - task: unit
+    file: source-code/unit-tests.yml
+  - task: build
+    file: source-code/build-app.yml
+  - put: deploy-central
+    params:
+      manifest: source-code/manifest.yml
+      current_app_name: music
+  - put: deploy-east
+    params:
+      manifest: source-code/manifest.yml
+      current_app_name: music
+    
+
+resources:
+- name: source-code
+  type: git
+  source:
+    uri: https://github.com/viglesiasce/spring-music
+
+- name: deploy-central
+  type: cf
+  source:
+    api: {{central_api}}
+    username: {{central_username}}
+    password: {{central_password}}
+    organization: {{central_organization}}
+    space: {{central_space}}
+    skip_cert_check: true
+    command_environment_variables:
+      CF_COLOR: true
+      CF_DIAL_TIMEOUT: 15
+      CF_TRACE: true
+
+- name: deploy-east
+  type: cf
+  source:
+    api: {{east_api}}
+    username: {{east_username}}
+    password: {{east_password}}
+    organization: {{east_organization}}
+    space: {{east_space}}
+    skip_cert_check: true
+    command_environment_variables:
+      CF_COLOR: true
+      CF_DIAL_TIMEOUT: 15
+      CF_TRACE: true
