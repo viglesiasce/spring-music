@@ -8,14 +8,15 @@ jobs:
     file: source-code/unit-tests.yml
   - task: build
     file: source-code/build-app.yml
-  - put: deploy-central
-    params:
-      manifest: source-code/manifest.yml
-      current_app_name: music
-  - put: deploy-east
-    params:
-      manifest: source-code/manifest.yml
-      current_app_name: music
+  - aggregate:
+    - put: deploy-central
+      params:
+        manifest: source-code/manifest.yml
+        current_app_name: music
+    - put: deploy-east
+      params:
+        manifest: source-code/manifest.yml
+        current_app_name: music
     
 
 resources:
